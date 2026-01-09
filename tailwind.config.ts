@@ -69,10 +69,9 @@ export default {
         "navy-dark": "var(--navy-dark)",
       },
       fontFamily: {
-        sans: ["var(--font-sans)"],
-        serif: ["var(--font-serif)"],
-        mono: ["var(--font-mono)"],
-        inter: ["Inter", "sans-serif"],
+        heading: ["Outfit", "sans-serif"],
+        body: ["Plus Jakarta Sans", "sans-serif"],
+        sans: ["Plus Jakarta Sans", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {

@@ -1,4 +1,5 @@
-import { Lightbulb, UserCog, BarChart, Handshake, Users, ServerCog, Laptop } from "lucide-react";
+import { Lightbulb, UserCog, BarChart, Handshake, Users, ServerCog, Laptop, Target, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function WhyUs() {
   const advantages = [
@@ -42,60 +43,125 @@ export default function WhyUs() {
     }
   ];
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 }
+  };
+
   return (
-    <section id="why-us" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="why-us" className="py-24 bg-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-navy-primary mb-6">Why Choose PlaceElements HR?</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl font-bold text-navy-dark mb-6"
+          >
+            Why Choose <span className="text-gradient">PlaceElements HR?</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          >
             Our unique approach combining people expertise, process optimization, and technology innovation sets us apart in the HR consultancy landscape.
-          </p>
+          </motion.p>
         </div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          <div>
-            <img 
-              src="https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
-              alt="Corporate client meeting with professional consultation" 
-              className="rounded-xl shadow-lg w-full h-auto"
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="absolute -inset-4 bg-teal-primary/5 rounded-3xl blur-2xl transform -rotate-1" />
+            <img
+              src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+              alt="Professional consultation"
+              className="rounded-2xl shadow-2xl relative z-10 w-full h-[500px] object-cover"
             />
-          </div>
-          <div className="space-y-8">
+            {/* Overlay card */}
+            <div className="absolute -bottom-8 -right-8 glass-panel p-6 rounded-2xl z-20 hidden md:block max-w-[240px]">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="bg-teal-primary/10 p-2 rounded-lg">
+                  <Target className="w-5 h-5 text-teal-primary" />
+                </div>
+                <span className="font-bold text-navy-primary">Strategy First</span>
+              </div>
+              <p className="text-xs text-gray-600 leading-tight">We align every HR initiative with your core business objectives for maximum impact.</p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-8"
+          >
             {advantages.map((advantage, index) => {
               const IconComponent = advantage.icon;
               return (
-                <div key={index} className="flex items-start space-x-4">
-                  <div className="bg-teal-primary text-white p-3 rounded-xl">
-                    <IconComponent className="w-6 h-6" />
+                <motion.div key={index} variants={item} className="group">
+                  <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:border-teal-primary/20">
+                    <div className="bg-teal-primary w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                      <IconComponent className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-lg font-bold text-navy-primary mb-3">{advantage.title}</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed text-pretty">{advantage.description}</p>
                   </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-navy-primary mb-2">{advantage.title}</h3>
-                    <p className="text-gray-700">{advantage.description}</p>
-                  </div>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
-        
+
         {/* Three Pillars Showcase */}
-        <div className="gradient-section rounded-2xl p-8 md:p-12 text-white">
-          <h3 className="text-3xl font-bold text-center mb-12">Our Three-Pillar Approach</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {pillars.map((pillar, index) => {
-              const IconComponent = pillar.icon;
-              return (
-                <div key={index} className="text-center">
-                  <div className="bg-white text-navy-primary w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <IconComponent className="w-10 h-10" />
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-gray-50/50 rounded-[2.5rem] p-12 lg:p-20 shadow-xl border border-gray-100 overflow-hidden relative"
+        >
+          {/* Decorative background elements */}
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-navy-primary/5 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2" />
+
+          <div className="relative z-10">
+            <h3 className="text-3xl lg:text-4xl font-bold text-center mb-16 text-navy-dark">Our Three-Pillar Approach</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+              {pillars.map((pillar, index) => {
+                const IconComponent = pillar.icon;
+                return (
+                  <div key={index} className="flex flex-col items-center text-center group">
+                    <div className="bg-teal-primary/10 text-teal-primary w-24 h-24 rounded-3xl flex items-center justify-center mb-8 rotate-3 group-hover:rotate-0 group-hover:scale-110 transition-all duration-500 shadow-sm">
+                      <IconComponent className="w-10 h-10" />
+                    </div>
+                    <h4 className="text-2xl font-bold mb-5 text-navy-primary">{pillar.title}</h4>
+                    <p className="text-gray-600 leading-relaxed">{pillar.description}</p>
+                    <div className="mt-6 flex items-center text-teal-primary font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                      <CheckCircle2 className="w-4 h-4 mr-2" />
+                      <span className="text-sm tracking-wide">Pillar {index + 1}</span>
+                    </div>
                   </div>
-                  <h4 className="text-2xl font-bold mb-4">{pillar.title}</h4>
-                  <p className="opacity-90">{pillar.description}</p>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
